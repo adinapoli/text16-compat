@@ -8,6 +8,7 @@ module Data.Text.Compat (
 
 import qualified Data.Text        as T
 import qualified Data.Text.Unsafe as UText
+import Data.Text.Internal.Encoding.Utf8 (utf8Length)
 
 takeWord16 :: Int -> T.Text -> T.Text
 takeWord16 n t =
@@ -21,11 +22,11 @@ takeWord16 n t =
         | offset < 2
         -- utf8 case
         -> if isASCII c
-              then go (leftToTake - 1) (iterIx + offset) (total + 1)
-              else go leftToTake       (iterIx + offset) (total + 1)
+              then go (leftToTake - 1) (iterIx + offset) (total + utf8Length c)
+              else go leftToTake       (iterIx + offset) (total + utf8Length c)
         -- utf16 case
         | otherwise
-        -> go (leftToTake - 1) (iterIx + offset) (total + 2)
+        -> go (leftToTake - 1) (iterIx + offset) (total + utf8Length c)
 #else
   UText.takeWord16 n t
 #endif
@@ -48,11 +49,11 @@ dropWord16 n txt =
         | offset < 2
         -- utf8 case
         -> if isASCII c
-              then go (leftToDrop - 1) 0 (UText.dropWord8 1 t)
-              else go leftToDrop  iterIx (UText.dropWord8 1 t)
+              then go (leftToDrop - 1) 0 (UText.dropWord8 (utf8Length c) t)
+              else go leftToDrop  iterIx (UText.dropWord8 (utf8Length c) t)
         -- utf16 case
         | otherwise
-        -> go (leftToDrop - 1) 0 (UText.dropWord8 2 t)
+        -> go (leftToDrop - 1) 0 (UText.dropWord8 (utf8Length c) t)
 
 #else
   UText.dropWord16 n txt
