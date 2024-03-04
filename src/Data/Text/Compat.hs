@@ -8,7 +8,9 @@ module Data.Text.Compat (
 
 import qualified Data.Text        as T
 import qualified Data.Text.Unsafe as UText
+#if USE_TEXT_2
 import Data.Text.Internal.Encoding.Utf8 (utf8Length)
+#endif
 
 takeWord16 :: Int -> T.Text -> T.Text
 takeWord16 n t =
