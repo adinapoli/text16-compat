@@ -13,7 +13,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest]
-        ghc-version: ['9.8', '9.6.3', '9.4.8', '9.2.8']
+        ghc-version: ['9.8', '9.6.3', '9.4.8', '9.2.8', '8.10.7']
 
         include:
           - os: windows-latest

@@ -1,8 +1,8 @@
 cabal-version:      3.4
 name:               text16-compat
 version:            0.1.0.0
--- synopsis:
--- description:
+synopsis:           Unsafe functions compat layer for text-2
+description:        Compatibility shim for text-2.* for some unsafe functions
 license:            MIT
 license-file:       LICENSE
 author:             Alfredo Di Napoli
@@ -11,6 +11,10 @@ maintainer:         alfredo@well-typed.com
 category:           Data
 build-type:         Simple
 extra-doc-files:    CHANGELOG.md
+
+source-repository head
+    type: git
+    location: https://github.com/adinapoli/text16-compat
 
 common warnings
     ghc-options: -Wall
